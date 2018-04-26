@@ -14,6 +14,7 @@ namespace Pacman
         [STAThread]
         static void Main()
         {
+            //привет Ринат
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new GameForm());
