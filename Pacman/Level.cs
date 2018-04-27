@@ -20,11 +20,19 @@ namespace Pacman
         public readonly string Name;
         public readonly Point Start;
         public char[,] Map;
+        public int MapWidth => Map.GetLength(0);
+        public int MapHeight => Map.GetLength(1);
         public Player Player;
 
         public void MovePlayer(int deltaX, int deltaY)
         {
 
+        }
+
+        public bool InMap(Point point)
+        {
+            return (point.X >= 0 && point.X < MapWidth
+                                 && point.Y >= 0 && point.Y < MapHeight);
         }
     }
 }

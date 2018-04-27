@@ -14,7 +14,6 @@ namespace Pacman
         [STAThread]
         static void Main()
         {
-            //выаыва
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new GameForm());
