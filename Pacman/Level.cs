@@ -25,7 +25,7 @@ namespace Pacman
 
         public void MovePlayer(int deltaX, int deltaY)
         {
-            if (CanMoveTo(Player.Corrdinates.X + deltaX, Player.Corrdinates.Y + deltaY))
+            if (CanMoveTo(Player.Coordinates.X + deltaX, Player.Coordinates.Y + deltaY))
                 Player.Move(deltaX, deltaY);
         }
 
