@@ -29,6 +29,11 @@ namespace Pacman
                 Player.Move(deltaX, deltaY);
         }
 
+        public void MoveGhosts()
+        {
+
+        }
+
         public bool CanMoveTo(int x, int y)
         {
             if (!(x <= MapWidth && x >= 0 && y <= MapHeight && y >= 0))
