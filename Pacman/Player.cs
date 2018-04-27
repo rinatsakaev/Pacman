@@ -27,6 +27,15 @@ namespace Pacman
         }
     }
 
+    class Wall : ICreature
+    {
+        public Point Corrdinates { get; set; }
+        public void Move(int deltaX, int deltaY)
+        {
+            return;;
+        }
+    }
+
     internal interface ICreature
     {
         Point Corrdinates { get; set; }
