@@ -25,6 +25,11 @@ namespace Pacman
         {
             Corrdinates.Add(deltaX, deltaY);
         }
+
+        public bool DeadInConflict(ICreature conflictedObj)
+        {
+            return conflictedObj is Ghost;
+        }
     }
 
     class Ghost : ICreature
@@ -35,11 +40,14 @@ namespace Pacman
         {
             Corrdinates.Add(deltaX, deltaY);
         }
+
+        public bool DeadInConflict(ICreature conflictedObj) => false;
     }
 
     internal interface ICreature
     {
         Point Corrdinates { get; set; }
         void Move(int deltaX, int deltaY);
+        bool DeadInConflict(ICreature conflictedObj);
     }
 }
