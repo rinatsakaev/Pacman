@@ -23,9 +23,10 @@ namespace Pacman
         public static ICreature[,] Map;
         public Player Player;
 
-        public void MakeStep(int deltaX, int deltaY)
+        public void MovePlayer(int deltaX, int deltaY)
         {
-             Player.Move(deltaX, deltaY);
+            if (CanMoveTo(Player.Coordinates.X+deltaX, Player.Coordinates.Y+deltaY))
+                Player.Move(deltaX, deltaY);
         }
 
         public bool CanMoveTo(int x, int y)
