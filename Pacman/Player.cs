@@ -9,7 +9,7 @@ namespace Pacman
 {
     class Player : ICreature
     {
-        public Point Corrdinates { get; set; }
+        public Point Coordinates { get; set; }
 
         public void Move(int deltaX, int deltaY)
         {
@@ -19,7 +19,7 @@ namespace Pacman
 
     class Ghost : ICreature
     {
-        public Point Corrdinates { get; set; }
+        public Point Coordinates { get; set; }
 
         public void Move(int deltaX, int deltaY)
         {
@@ -27,9 +27,19 @@ namespace Pacman
         }
     }
 
+    class Wall : ICreature
+    {
+        public Point Coordinates { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
+        public void Move(int deltaX, int deltaY)
+        {
+            return;
+        }
+    }
+
     internal interface ICreature
     {
-        Point Corrdinates { get; set; }
+        Point Coordinates { get; set; }
         void Move(int deltaX, int deltaY);
     }
 }
