@@ -29,8 +29,9 @@ namespace Pacman
             var controlX = left ? -1 : (right ? 1 : 0);
             var controlY = down ? -1 : (up ? 1 : 0);
             currentLevel.MovePlayer(controlX, controlY);
-
+            currentLevel.MoveGhosts();
         }
+
         private void HandleKey(Keys e, bool isPressed)
         {
             if (e == Keys.A) left = isPressed;
