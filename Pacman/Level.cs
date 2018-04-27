@@ -28,11 +28,5 @@ namespace Pacman
         {
 
         }
-
-        public bool InMap(Point point)
-        {
-            return (point.X >= 0 && point.X < MapWidth
-                                 && point.Y >= 0 && point.Y < MapHeight);
-        }
     }
 }
