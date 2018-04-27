@@ -20,9 +20,10 @@ namespace Pacman
         public bool IsCompleted;
         public readonly string Name;
         public readonly Point Start;
-        public ICreature[,] Map;
-        public int MapWidth => Map.GetLength(0);
-        public int MapHeight => Map.GetLength(1);
+        public static ICreature[,] Map;
+        public static Point GhostBase;
+        public static int MapWidth => Map.GetLength(0);
+        public static int MapHeight => Map.GetLength(1);
         public Player Player;
         public static Keys KeyPressed;
 
