@@ -15,7 +15,6 @@ namespace Pacman
         {
             return new Point(a.X + x, a.Y + y);
         }
-
     }
     class Player : ICreature
     {
@@ -30,6 +29,31 @@ namespace Pacman
         {
             return conflictedObj is Ghost;
         }
+
+        public CreatureCommand Act(int x, int y)
+        {
+            var command = new CreatureCommand();
+            switch (Level.KeyPressed)
+            {
+                case Keys.Up:
+                    if (y - 1 >= 0)
+                        command.DeltaY--;
+                    break;
+                case Keys.Down:
+                    if (y + 1 < Level.MapHeight)
+                        command.DeltaY++;
+                    break;
+                case Keys.Left:
+                    if (x - 1 >= 0)
+                        command.DeltaX--;
+                    break;
+                case Keys.Right:
+                    if (x + 1 < Level.MapWidth)
+                        command.DeltaX++;
+                    break;
+            }
+            return command;
+        }
     }
 
     class Ghost : ICreature
@@ -42,12 +66,25 @@ namespace Pacman
         }
 
         public bool DeadInConflict(ICreature conflictedObj) => false;
+
+        public CreatureCommand Act(int x, int y)
+        {
+            
+        }
     }
 
-    internal interface ICreature
+    public interface ICreature
     {
         Point Corrdinates { get; set; }
         void Move(int deltaX, int deltaY);
         bool DeadInConflict(ICreature conflictedObj);
+        CreatureCommand Act(int x, int y);
+    }
+
+    public class CreatureCommand
+    {
+        public int DeltaX;
+        public int DeltaY;
+        public ICreature TransformTo;
     }
 }

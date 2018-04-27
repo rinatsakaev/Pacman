@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Pacman
 {
@@ -20,11 +21,17 @@ namespace Pacman
         public readonly string Name;
         public readonly Point Start;
         public char[,] Map;
-        public int MapWidth => Map.GetLength(0);
-        public int MapHeight => Map.GetLength(1);
+        public static int MapWidth => Map.GetLength(0);
+        public static int MapHeight => Map.GetLength(1);
         public Player Player;
+        public static Keys KeyPressed;
 
         public void MovePlayer(int deltaX, int deltaY)
+        {
+            Player.Act(deltaX, deltaY);
+        }
+
+        public void MoveGhosts(int deltaX, int deltaY)
         {
 
         }
