@@ -20,7 +20,6 @@ namespace Pacman
         public bool IsCompleted;
         public readonly string Name;
         public readonly Point Start;
-<<<<<<< HEAD
         public ICreature[,] Map;
         public int MapWidth => Map.GetLength(0);
         public int MapHeight => Map.GetLength(1);
@@ -33,18 +32,10 @@ namespace Pacman
             MoveGhosts();
             Map = RefreshMap();
         }
-=======
-        public char[,] Map;
-        public static int MapWidth => Map.GetLength(0);
-        public static int MapHeight => Map.GetLength(1);
-        public Player Player;
-        public static Keys KeyPressed;
->>>>>>> 23faebb2832eecea18e86ca0818ac5a3f8e9cfd2
 
         public void MovePlayer(int deltaX, int deltaY)
         {
             Player.Act(deltaX, deltaY);
-<<<<<<< HEAD
             if (Player.DeadInConflict(Map[Player.Coordinates.X, Player.Coordinates.Y]))
                 IsCompleted = true;
         }
@@ -60,12 +51,6 @@ namespace Pacman
                         rival.Coordinates.Y == candidate.Coordinates.Y &&
                 candidate.DeadInConflict(rival))
                         aliveCandidates.Remove(candidate);
-=======
-        }
-
-        public void MoveGhosts(int deltaX, int deltaY)
-        {
->>>>>>> 23faebb2832eecea18e86ca0818ac5a3f8e9cfd2
 
             return GetMapFromList(aliveCandidates);
         }
