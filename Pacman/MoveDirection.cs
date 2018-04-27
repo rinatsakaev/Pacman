@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace Pacman
 {
-    public class CreatureCommand
+    public enum MoveDirection
     {
-        public int DeltaX;
-        public int DeltaY;
-        public ICreature TransformTo;
+        Up,
+        Down,
+        Right,
+        Left
     }
 }

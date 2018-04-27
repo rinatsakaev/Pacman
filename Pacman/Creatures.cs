@@ -1,16 +1,14 @@
 ﻿using System;
-using System.CodeDom;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Pacman
 {
-    public class Player: ICreature
+    public class Player : ICreature
     {
         public Point Coordinates { get; set; }
 
@@ -22,7 +20,28 @@ namespace Pacman
         }
 
         public CreatureCommand Act(int deltaX, int deltaY)
-        { 
+        {
+            var command = new CreatureCommand();
+            switch (Level.KeyPressed)
+            {
+                case Keys.Up:
+                    if (deltaY - 1 >= 0)
+                        command.DeltaY--;
+                    break;
+                case Keys.Down:
+                    if (deltaY + 1 < Level.MapHeight)
+                        command.DeltaY++;
+                    break;
+                case Keys.Left:
+                    if (deltaX - 1 >= 0)
+                        command.DeltaX--;
+                    break;
+                case Keys.Right:
+                    if (deltaX + 1 < Level.MapWidth)
+                        command.DeltaX++;
+                    break;
+            }
+            return command;
         }
     }
 
@@ -47,26 +66,30 @@ namespace Pacman
         public Point Coordinates { get; set; }
         public CreatureCommand Act(int deltaX, int deltaY)
         {
-            throw new NotImplementedException();
+            return new CreatureCommand
+            {
+                DeltaX = deltaX,
+                DeltaY = deltaY
+            };
         }
 
         public bool DeadInConflict(ICreature conflictedObject)
         {
-            return true;
+            return conflictedObject is Player;
         }
     }
 
-    class InvisibleGhost:ICreature
+    class InvisibleGhost : ICreature
     {
         public Point Coordinates { get; set; }
         public CreatureCommand Act(int deltaX, int deltaY)
         {
-            throw new NotImplementedException();
+
         }
 
         public bool DeadInConflict(ICreature conflictedObject)
         {
-            throw new NotImplementedException();
+            return false;
         }
     }
 
@@ -81,7 +104,7 @@ namespace Pacman
 
         public CreatureCommand Act(int deltaX, int deltaY)
         {
-            return;
+            return new CreatureCommand();
         }
     }
 
@@ -90,27 +113,27 @@ namespace Pacman
         public Point Coordinates { get; set; }
         public CreatureCommand Act(int deltaX, int deltaY)
         {
-            throw new NotImplementedException();
+            return new CreatureCommand();
         }
 
         public bool DeadInConflict(ICreature conflictedObject)
         {
-            throw new NotImplementedException();
+            return conflictedObject is Player;
         }
     }
 
     class SuperFood : ICreature
     {
-        public Point Coordinates { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public Point Coordinates { get; set; }
 
         public CreatureCommand Act(int deltaX, int deltaY)
         {
-            throw new NotImplementedException();
+            return new CreatureCommand();
         }
 
         public bool DeadInConflict(ICreature conflictedObject)
         {
-            throw new NotImplementedException();
+            return conflictedObject is Player;
         }
     }
     public interface ICreature
@@ -119,6 +142,10 @@ namespace Pacman
         CreatureCommand Act(int deltaX, int deltaY);
         bool DeadInConflict(ICreature conflictedObject);
     }
-
+    public class CreatureCommand
+    {
+        public int DeltaX;
+        public int DeltaY;
+        public ICreature TransformTo;
+    }
 }
-
