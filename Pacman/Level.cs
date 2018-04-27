@@ -74,60 +74,9 @@ namespace Pacman
                 for (var y = 0; y < MapHeight; y++)
                 {
                     var currentCell = Map[x, y];
-                    if (currentCell is AngryGhost)
-                        MoveAngryGhost(currentCell);
-                    if (currentCell is FunkyGhost)
-                        MoveFunkyGhost(currentCell);
-                    if (currentCell is InvisibleGhost)
-                        MoveInvisibleGhost(currentCell);
+                    if (!(currentCell is Wall||currentCell is Player))
+                        currentCell.Act(x, y);
                 }
-        }
-
-        private void MoveInvisibleGhost(ICreature ghost)
-        {
-            var queue = new Queue<SinglyLinkedList<Point>>();
-            var visited = new HashSet<Point>();
-            pathToBase = null;
-            queue.Enqueue(new SinglyLinkedList<Point>(ghost.Coordinates));
-            while (queue.Count != 0)
-            {
-                var list = queue.Dequeue();
-                if (list.Value == GhostBase)
-                    pathToBase = list;
-
-                foreach (var nextPoint in Rectangle(list.Value.X, list.Value.Y))
-                {
-                    if (Map[nextPoint.X, nextPoint.Y] is Wall)
-                        continue;
-                    if (visited.Contains(nextPoint))
-                        continue;
-                    visited.Add(nextPoint);
-                    queue.Enqueue(new SinglyLinkedList<Point>(nextPoint, list));
-                }
-            }
-
-            var path = pathToBase.ToList().ToDirections();
-            ghost.Act(path.First().Item1, path.First().Item2);
-
-        }
-       
-
-        public static IEnumerable<Point> Rectangle(int xstart, int ystart)
-        {
-            for (var dx = -1; dx <= 1; dx++)
-            for (var dy = -1; dy <= 1; dy++)
-            {
-                if (!InBounds(new Point(xstart + dx, ystart + dy)))
-                    continue;
-                if (!(dx != 0 && dy != 0 || dx == 0 && dy == 0))
-                    yield return new Point { X = xstart + dx, Y = ystart + dy };
-            }
-        }
-
-        public static bool InBounds(Point point)
-        {
-            var bounds = new Rectangle(0, 0, Map.GetLength(0), Map.GetLength(1));
-            return bounds.Contains(point);
         }
 
         public bool CanMoveTo(int x, int y)
