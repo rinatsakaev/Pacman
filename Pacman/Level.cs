@@ -28,12 +28,6 @@ namespace Pacman
         public static Keys KeyPressed;
         private SinglyLinkedList<Point> pathToBase;
 
-        public void MoveAll()
-        {
-            MovePlayer(0, 0);
-            MoveGhosts();
-            Map = RefreshMap();
-        }
 
         public void MovePlayer(int deltaX, int deltaY)
         {
@@ -42,9 +36,9 @@ namespace Pacman
                 IsCompleted = true;
         }
 
-        private ICreature[,] RefreshMap()
+        public void RefreshMap()
         {
-   
+
             var aliveCandidates = Map.ToList();
             foreach (var candidate in aliveCandidates)
                 foreach (var rival in aliveCandidates)
@@ -54,12 +48,12 @@ namespace Pacman
                 candidate.DeadInConflict(rival))
                         aliveCandidates.Remove(candidate);
 
-            return GetMapFromList(aliveCandidates);
+            Map = GetMapFromList(aliveCandidates);
         }
 
-        private ICreature[,] GetMapFromList(List<ICreature> aliveCandidates)
+        private static ICreature[,] GetMapFromList(List<ICreature> aliveCandidates)
         {
-            var map = new ICreature[MapWidth,MapHeight];
+            var map = new ICreature[MapWidth, MapHeight];
             foreach (var creature in aliveCandidates)
             {
                 map[creature.Coordinates.X, creature.Coordinates.Y] = creature;
@@ -74,7 +68,7 @@ namespace Pacman
                 for (var y = 0; y < MapHeight; y++)
                 {
                     var currentCell = Map[x, y];
-                    if (!(currentCell is Wall||currentCell is Player))
+                    if (!(currentCell is Wall || currentCell is Player))
                         currentCell.Act(x, y);
                 }
         }
@@ -102,9 +96,9 @@ namespace Pacman
         }
         public static Tuple<int, int> GetMoveDirection(Point from, Point to)
         {
-            if (from.X > to.X) return new Tuple<int, int>(-1,0);
+            if (from.X > to.X) return new Tuple<int, int>(-1, 0);
             if (from.X < to.X) return new Tuple<int, int>(1, 0);
-            if (from.Y > to.Y) return new Tuple<int, int> (0, 1);
+            if (from.Y > to.Y) return new Tuple<int, int>(0, 1);
             if (from.Y < to.Y) return new Tuple<int, int>(0, -1);
             throw new ArgumentException();
         }

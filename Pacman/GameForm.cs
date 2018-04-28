@@ -19,17 +19,37 @@ namespace Pacman
         private bool left;
         private bool up;
         private bool down;
+        private int tickCount;
         private void ChangeLevel(Level newLevel)
         {
+            currentLevel = newLevel;
+        }
 
+        public GameForm()
+        {
+            var timer = new Timer
+            {
+                Interval = 15
+            };
+            timer.Tick += TimerTick;
+            timer.Start();
         }
 
         private void TimerTick(object sender, EventArgs e)
         {
             var controlX = left ? -1 : (right ? 1 : 0);
             var controlY = down ? -1 : (up ? 1 : 0);
-            currentLevel.MovePlayer(controlX, controlY);
-            currentLevel.MoveGhosts();
+            if (tickCount == 0)
+            {
+                currentLevel.MovePlayer(controlX, controlY); 
+                currentLevel.MoveGhosts();
+            }
+           
+            if (tickCount == 7)
+                currentLevel.RefreshMap();
+            tickCount++;
+            if (tickCount == 8) tickCount = 0;
+            Invalidate();
         }
 
         private void HandleKey(Keys e, bool isPressed)
