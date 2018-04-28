@@ -13,15 +13,12 @@ namespace Pacman
         public static int MapHeight => Map.GetLength(1);
         public static int Scores;
         public static bool IsOver;
-
-
+ 
         private const string testMap = 
         "WWW"+
         "W P"+
         "A  ";
  
-
-
 
         public static void CreateMap()
         {

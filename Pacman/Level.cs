@@ -10,28 +10,27 @@ namespace Pacman
 {
     class Level
     {
-        public Level(string name, Point start, ICreature[,] map)
+        public Level(string name, ICreature[,] map)
         {
             Name = name;
-            Start = start;
             Map = map;
         }
 
         public bool IsCompleted;
         public readonly string Name;
-        public readonly Point Start;
+ 
         public static ICreature[,] Map;
         public static Point GhostBase;
         public static int MapWidth => Map.GetLength(0);
         public static int MapHeight => Map.GetLength(1);
-        public Player Player;
+        public ICreature Player;
         public static Keys KeyPressed;
         private SinglyLinkedList<Point> pathToBase;
 
 
         public void MovePlayer(int deltaX, int deltaY)
         {
-            Player.Act(deltaX, deltaY);
+            Player = GetPlayerObject();
             if (Player.DeadInConflict(Map[Player.Coordinates.X, Player.Coordinates.Y]))
                 IsCompleted = true;
         }
@@ -68,7 +67,7 @@ namespace Pacman
                 for (var y = 0; y < MapHeight; y++)
                 {
                     var currentCell = Map[x, y];
-                    if (!(currentCell is Wall || currentCell is Player))
+                    if (!(currentCell is null|| currentCell is Wall || currentCell is Player))
                         currentCell.Act(x, y);
                 }
         }
@@ -82,6 +81,14 @@ namespace Pacman
             return true;
         }
 
+        public ICreature GetPlayerObject()
+        {
+            for (int x = 0; x < MapWidth; x++)
+                for (int y = 0; y < MapHeight; y++)
+                    if (Map[x, y] is Player)
+                        return Map[x, y];
+            throw new NullReferenceException("Player not found");
+        }
     }
 
     public static class ArrayExtensions
