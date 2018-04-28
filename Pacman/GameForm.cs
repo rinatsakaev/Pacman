@@ -20,6 +20,7 @@ namespace Pacman
         private bool up;
         private bool down;
         private int tickCount;
+
         private void ChangeLevel(Level newLevel)
         {
             currentLevel = newLevel;
@@ -27,6 +28,7 @@ namespace Pacman
 
         public GameForm()
         {
+           //???
             var timer = new Timer
             {
                 Interval = 15

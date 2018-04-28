@@ -45,8 +45,8 @@ namespace Pacman
             {
                 case 'P':
                     return CreateCreatureByTypeName("Player");
-                case 'T':
-                    return CreateCreatureByTypeName("Terrain");
+                case 'W':
+                    return CreateCreatureByTypeName("Wall");
                 case 'A':
                     return CreateCreatureByTypeName("AngryGhost");
                 case 'F':
